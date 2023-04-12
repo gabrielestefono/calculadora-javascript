@@ -4,23 +4,23 @@
     flex-wrap: wrap;
 }
 
-.calc__keyboard--btn:nth-last-child(1n){
+.btn:nth-last-child(1n){
     flex:25%;
     font-size: 3rem;
     border: 1px solid #2c2d2f;
     color: white;
 }
 
-.calc__keyboard--btn:nth-child(1n){
+.btn:nth-child(1n){
     background-color: rgb(95, 96, 98);
     cursor: pointer;
 }
 
-.calc__keyboard--btn:nth-child(1),.calc__keyboard--btn:nth-child(2),.calc__keyboard--btn:nth-child(3){
+.btn:nth-child(1),.calc__keyboard--btn:nth-child(2),.calc__keyboard--btn:nth-child(3){
     background-color: #404143;
 }
 
-.calc__keyboard--btn:nth-last-child(4n), .calc__keyboard--btn:nth-last-child(1){
+.btn:nth-last-child(4n), .calc__keyboard--btn:nth-last-child(1){
     background-color: rgb(253, 158, 42);
 }
 
