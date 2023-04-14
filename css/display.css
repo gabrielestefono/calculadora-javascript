@@ -4,6 +4,7 @@
     background-color: #2c2d2f;
     border-radius: 0.5rem;
     padding: 2px;
+    min-width: 330px;
 }
 
 .calc__display{
