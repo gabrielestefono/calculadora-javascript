@@ -20,7 +20,7 @@
     background-color: #404143;
 }
 
-.btn:nth-last-child(4n), .calc__keyboard--btn:nth-last-child(1){
+.btn:nth-last-child(4n), .btn:nth-last-child(1){
     background-color: rgb(253, 158, 42);
 }
 
