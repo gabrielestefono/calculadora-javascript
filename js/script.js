@@ -1,22 +1,23 @@
-// Botões
+// Variáveis 
 let idsDeNumeros = 'btn-';
 let numeros = new Array;
 let numerosHTML = new Array;
+let operacaoString = new Array;
+let operacoes = Array.from(document.getElementsByClassName('operacao'));
 let mostrador = document.getElementById('mostrador');
 let apagar = document.getElementById('apagar');
+let inverter = document.getElementById('inverter');
 let igual = document.getElementById('igual');
-let mais = document.getElementById('mais');
-let menos = document.getElementById('menos');
-let dividir = document.getElementById('dividir');
-let vezes = document.getElementById('vezes');
-let numeroUm = '';
-let numeroDois = '';
+let numeroUm;
+let porcentagem = false;
+let numeroDois;
 let zerarContador = false;
-let resultadoString;
 let resultado;
+let proximo;
+let pular = false;
+let operacao;
 
-mostrador.innerHTML == 0
-
+// Criando funcionalidade de botões numéricos
 for(let i = 0; i < 11; i++){
     numeros.push(idsDeNumeros + i);
     numerosHTML.push(document.getElementById(numeros[i]));
@@ -25,158 +26,113 @@ for(let i = 0; i < 11; i++){
 numerosHTML.forEach(botao=>{
     botao.addEventListener('click', ()=>{
         mostrar(botao.innerText)
+        pular = true;
     })
 })
 
-let definindoPrimeiroNumero = (valor)=>{
-    numeroUm = valor;
-}
+// Criando funcionalidade de operações
 
-let definindoSegundoNumero = (valor)=>{
-    numeroDois = valor;
-}
+operacoes.forEach(operacao => {
+    operacao.addEventListener('click', ()=>{
+        definirOperacao(operacao.innerText);
+    })
+});
 
-let definindoOperacao = (valor)=>{
-    if(valor == '+'){
-        return numeroUm + "+";
-    }else if(valor == '-'){
-        return numeroUm + "-";
-    }else if(valor == '*'){
-        return numeroUm + "*";
-    }else if(valor == '/'){
-        return numeroUm + "/";
-    }
-}
 
+// FUNÇÕES
+    // Função que define o que vai ser mostrado na tela, enquanto o usuário digita
 let mostrar = (valor)=>{
     if(zerarContador){
-        mostrador.innerText = 0;
+        mostrador.innerHTML = 0;
         zerarContador = false;
     }
     if(mostrador.innerHTML == 0){
         mostrador.innerHTML = valor;
-    }else if(mostrador.innerHTML.length == 9){
-        mostrador.innerHTML = mostrador.innerText;
     }else if(mostrador.innerHTML.length == 8){
         if(mostrador.innerHTML.indexOf('.') == -1){
             mostrador.innerHTML = mostrador.innerText;
         }else{
             mostrador.innerHTML = mostrador.innerText + valor;
         }
+    }else if(mostrador.innerHTML.length == 9){
+        mostrador.innerHTML = mostrador.innerText;
     }else{
         mostrador.innerHTML = mostrador.innerText + valor;
     }
 }
 
-let resultadoOperacaoMais = (valor1, valor2)=>{
-    return valor1 + valor2;
+    // Mostrar resultados
+let mostrarResultado = (valor)=>{
+    mostrador.innerText = valor
 }
-
-let resultadoOperacaoMenos = (valor1, valor2)=>{
-    return valor1 - valor2;
-}
-
-let resultadoOperacaoVezes= (valor1, valor2)=>{
-    return valor1 * valor2;
-}
-
-let resultadoOperacaoDividir = (valor1, valor2)=>{
-    return valor1 / valor2;
-}
-
-let resolverOperacao = (valor1, valor2)=>{
-    if(valor1.substr(-1) == '+'){
-        let resultadoOperacao = resultadoOperacaoMais(parseFloat(numeroUm), parseFloat(valor2));
-        return resultadoOperacao;
-    }else if(valor1.substr(-1) == '-'){
-        let resultadoOperacao = resultadoOperacaoMenos(parseFloat(numeroUm), parseFloat(valor2));
-        return resultadoOperacao;
-    }else if(valor1.substr(-1) == '*'){
-        let resultadoOperacao = resultadoOperacaoVezes(parseFloat(numeroUm), parseFloat(valor2));
-        return resultadoOperacao;
-    }else if(valor1.substr(-1) == '/'){
-        let resultadoOperacao = resultadoOperacaoDividir(parseFloat(numeroUm), parseFloat(valor2));
-        return resultadoOperacao;
-    }
-}
-
-mais.addEventListener('click', ()=>{
-    if(numeroUm == ''){
-        definindoPrimeiroNumero(mostrador.innerText);
-        zerarContador = true;
-        resultadoString = definindoOperacao('+')
-    }else{
-        definindoSegundoNumero(mostrador.innerText);
-        resultado = resolverOperacao(resultadoString, numeroDois);
-        definindoPrimeiroNumero(resultado);
-        mostrador.innerText = resultado;
-        zerarContador = true;
-        resultadoString = definindoOperacao('+')
-    }
-})
-
-menos.addEventListener('click', ()=>{
-    if(numeroUm === ''){
-        definindoPrimeiroNumero(mostrador.innerText);
-        zerarContador = true;
-        resultadoString = definindoOperacao('-')
-    }else{
-        definindoSegundoNumero(mostrador.innerText);
-        resultado = resolverOperacao(resultadoString, numeroDois);
-        definindoPrimeiroNumero(resultado);
-        mostrador.innerText = resultado;
-        zerarContador = true;
-        resultadoString = definindoOperacao('-')
-    }
-})
-
-dividir.addEventListener('click', ()=>{
-    if(numeroUm == ''){
-        definindoPrimeiroNumero(mostrador.innerText);
-        zerarContador = true;
-        resultadoString = definindoOperacao('/')
-    }else{
-        definindoSegundoNumero(mostrador.innerText);
-        resultado = resolverOperacao(resultadoString, numeroDois);
-        definindoPrimeiroNumero(resultado);
-        mostrador.innerText = resultado;
-        zerarContador = true;
-        resultadoString = definindoOperacao('/')
-    }
-})
-
-vezes.addEventListener('click', ()=>{
-    if(numeroUm == ''){
-        definindoPrimeiroNumero(mostrador.innerText);
-        zerarContador = true;
-        resultadoString = definindoOperacao('*')
-    }else{
-        definindoSegundoNumero(mostrador.innerText);
-        resultado = resolverOperacao(resultadoString, numeroDois);
-        definindoPrimeiroNumero(resultado);
-        mostrador.innerText = resultado;
-        zerarContador = true;
-        resultadoString = definindoOperacao('*')
-    }
-})
-
-apagar.addEventListener('click', ()=>{
-    mostrador.innerText = 0;
-    numeroUm = '';
-    numeroDois = '';
-})
-
-igual.addEventListener('click', ()=>{
-    if(zerarContador == false){
-        definindoSegundoNumero(mostrador.innerText);
-        resultado = resolverOperacao(resultadoString, numeroDois);
-        mostrador.innerText = resultado;
-        numeroUm = '';
-        numeroDois = '';
+    // Definir operações
+let definirOperacao = (valor)=>{
+    if(pular){
+        pular = false;
+        operacaoString.push(mostrador.innerText);
+        operacaoString.push(valor)
         zerarContador = true
     }else{
-        mostrador.innerText = resultado;
-        numeroUm = '';
-        numeroDois = '';
+        operacaoString.pop()
+        operacaoString.push(valor)
     }
+    separarValores();
+}
+
+    // Separar Valores para execução dos cálculos
+let separarValores = ()=>{
+    if(operacaoString.length >= 3){
+        numeroUm = parseFloat(operacaoString[operacaoString.length - 4]);
+        operacao = operacaoString[operacaoString.length - 3];
+        numeroDois = parseFloat(operacaoString[operacaoString.length - 2]);
+        proximo = operacaoString[operacaoString.length - 1];
+        if(proximo == '%'){
+            porcentagem = true;
+        }
+        resultado = calcular(numeroUm, operacao, numeroDois);
+        mostrarResultado(resultado);
+        operacaoString = [];
+        operacaoString.push(resultado);
+        operacaoString.push(`${proximo}`);
+        if(proximo == '='){
+            operacaoString = [];
+            numeroUm = '';
+            numeroDois = '';
+            pular = true;
+        }
+    }
+}
+
+    // Calcular os dados de acordo com a operação passada
+let calcular = (valor1, operacao, valor2)=>{
+    if(porcentagem){
+        valor2 = ((valor1 / 100)) * valor2
+        porcentagem = false
+    }
+    if(operacao == '+'){
+        return valor1 + valor2
+    }else if(operacao == '-'){
+        return valor1 - valor2
+    }else if(operacao == 'x'){
+        return valor1 * valor2
+    }else if(operacao == '÷'){
+        return valor1 / valor2
+    }
+}
+
+// LISTENERS
+    // Botão de Apagar
+apagar.addEventListener('click', ()=>{
+    mostrarResultado(0)
+    numeroUm = '';
+    numeroDois = '';
+    operacaoString = [];
 })
+
+    // Botão que inverte o sinal
+inverter.addEventListener('click', ()=>{
+    mostrador.innerText = parseFloat(mostrador.innerText * -1)
+})
+
+    // Definindo o mostrador inicial como 0
+mostrador.innerHTML = 0
