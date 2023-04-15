@@ -5,6 +5,7 @@
     border-radius: 0.5rem;
     padding: 2px;
     min-width: 330px;
+    max-width: 493px;
 }
 
 .calc__display{
@@ -45,8 +46,27 @@
 
 .calc__display--lcd_num{
     color: white;
-    font-size: 8rem;
+    font-size: 6rem;
     text-align: right;
     margin-top: 1rem;
     margin-right: 1rem;
 }
+
+@media screen and (max-width: 1500px){
+    .calc__display--lcd_num{
+        font-size: 6rem;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    .calc__display--lcd_num{
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .calc__display--lcd_num{
+        font-size: 4rem;
+    }
+}
+

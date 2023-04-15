@@ -5,10 +5,12 @@ let numerosHTML = new Array;
 let operacaoString = new Array;
 let operacoes = Array.from(document.getElementsByClassName('operacao'));
 let mostrador = document.getElementById('mostrador');
+let historico = document.getElementById('historico');
 let apagar = document.getElementById('apagar');
 let inverter = document.getElementById('inverter');
 let igual = document.getElementById('igual');
 let numeroUm;
+let strHistorico;
 let porcentagem = false;
 let numeroDois;
 let zerarContador = false;
@@ -31,7 +33,6 @@ numerosHTML.forEach(botao=>{
 })
 
 // Criando funcionalidade de operações
-
 operacoes.forEach(operacao => {
     operacao.addEventListener('click', ()=>{
         definirOperacao(operacao.innerText);
@@ -39,7 +40,11 @@ operacoes.forEach(operacao => {
 });
 
 
+
 // FUNÇÕES
+
+
+
     // Função que define o que vai ser mostrado na tela, enquanto o usuário digita
 let mostrar = (valor)=>{
     if(zerarContador){
@@ -61,10 +66,26 @@ let mostrar = (valor)=>{
     }
 }
 
+let mostrarHistorico = ()=>{
+    operacaoString.forEach(valor => {
+        if(strHistorico == undefined){
+            strHistorico = valor;
+        }else{
+            strHistorico = strHistorico + valor;
+        }
+        historico.innerText = strHistorico; 
+    })
+}
+
     // Mostrar resultados
 let mostrarResultado = (valor)=>{
-    mostrador.innerText = valor
+    if(valor > 99999999){
+        mostrador.innerText = 'Erro';
+    }else{
+        mostrador.innerText = String(valor).substr(0, 9)
+    }
 }
+
     // Definir operações
 let definirOperacao = (valor)=>{
     if(pular){
@@ -76,6 +97,9 @@ let definirOperacao = (valor)=>{
         operacaoString.pop()
         operacaoString.push(valor)
     }
+    console.log('Sim')
+    strHistorico = '';
+    mostrarHistorico(); 
     separarValores();
 }
 
@@ -95,6 +119,15 @@ let separarValores = ()=>{
         operacaoString.push(resultado);
         operacaoString.push(`${proximo}`);
         if(proximo == '='){
+            operacaoString = [];
+            numeroUm = '';
+            numeroDois = '';
+            pular = true;
+        }
+    }else if(operacaoString.length <= 2){
+        operacao = operacaoString[operacaoString.length - 1];
+        if(operacao == '%'){
+            mostrador.innerText = 'Erro';
             operacaoString = [];
             numeroUm = '';
             numeroDois = '';
@@ -127,6 +160,7 @@ apagar.addEventListener('click', ()=>{
     numeroUm = '';
     numeroDois = '';
     operacaoString = [];
+    historico.innerText = '';
 })
 
     // Botão que inverte o sinal
